@@ -2,58 +2,44 @@ package aplicacao;
 
 import javax.swing.JOptionPane;
 
+import entidades.Funcionario;
 import servico.*;
 
 public class Programa {
 
-    public static void main(String[] args) {
+	public static void login() {
 
-        JOptionPane.showMessageDialog(null, "Bem-vindo ao cadastro de vacinação contra o COVID-19");
+		try {
+			Funcionario fun = new Funcionario();	
 
-        int op;
-        do {
-            op = Integer.parseInt(JOptionPane.showInputDialog(null, """
-            		Escola a função desejada
-                    [1] Cadastrar
-                    [2] Pesquisar
-                    [3] Alterar
-                    [4] Fazer Relatório
-                    [5] Deletar
-                    [0] Sair"""));
-            switch (op) {
-                case 1:
-                        Cadastro.cadastroPaciente();
-                    break;
-                case 2:
-                	if(PesquisaBD.pesquisarCadastro() != null) {
-                		JOptionPane.showMessageDialog(null, PesquisaBD.resultadoPesquisa());
-                	}
-                    break;
-                case 3:
-                    AlterarRegistroBD.alterarCadastro();
-            		Conexao.getInstance().fecharConexao();
-                    break;
+			String login = JOptionPane.showInputDialog("Digite seu login (Username/E-mail)");
+			String senha = JOptionPane.showInputDialog("Digite sua senha");
 
-                case 4:
-                    RelatorioBD.relatorio();                    
-                    break;
-                case 5:
-                    try {
-                        if (DeleteRegistroBD.deletarCadastro()) {
-                            JOptionPane.showMessageDialog(null, "Cadastro do paciente deletado");
-                        }
+			if (login.equals("admin") && senha.equals("root")) {
+				MenuPrincipal.menuPrincipalAdmin();
+			} else if (fun.pesquisarFuncionario()) {
+				MenuPrincipal.menuPrincipalUsuario();
+			}else {
+				int resp = JOptionPane.showConfirmDialog(null, "Senha não conrresponde!\nRepita sua senha para confirmar",
+						"WARNING",JOptionPane.YES_NO_OPTION);
+				if(resp == 0) {
+					login();				
+				}else {
+					System.exit(0);
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
-                    } catch (Exception ignored) {
+	}
 
-                    }
-                    break;
-                case 0:
-                    JOptionPane.showMessageDialog(null, "Saindo do aplicativo");
-                    break;
+	public static void main(String[] args) {
+		
+		JOptionPane.showMessageDialog(null, "Bem-vindo ao cadastro de vacinação contra o COVID-19");
 
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção invalida!\nEscolha uma opção válida:");
-            }
-        } while (op != 0);
-    }
+		Programa.login();
+	}
+
 }

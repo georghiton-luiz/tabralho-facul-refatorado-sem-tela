@@ -1,10 +1,10 @@
 package servico;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class RelatorioBD {
 
-    public static void relatorio() {
+    public static void relatorioPaciente() {
 
         String query = "SELECT nome_paciente AS NOME, data_nasc_paciente AS DATA_NASC, rg_paciente AS RG,"
                 + "org_emissor_paciente AS ORGAO_EMISSOR, cpf_paciente AS CPF, num_sus_paciente AS NUM_SUS, rua_paciente AS LOGRADOURO, num_paciente AS NUMERO, "
@@ -14,8 +14,16 @@ public class RelatorioBD {
                 + "ON DADOS.id_paciente = ENDERECO.id_paciente INNER JOIN contato_paciente AS CONTATO "
                 + "ON DADOS.id_paciente = CONTATO.id_paciente INNER JOIN vacina_paciente AS VACINA "
                 + "ON DADOS.id_paciente = VACINA.id_paciente";
-        Conexao.getInstance().executaSQL("copy ("+ query + ") to 'e:/TrabalhoBD/relatorio.xls' with delimiter '\t' csv header;");
-        JOptionPane.showMessageDialog(null, "Relatório criado em 'e:/TrabalhoBD/relatorio.xls'");
+        Conexao.getInstance().executaSQL("copy ("+ query + ") to 'e:/TrabalhoBD/relatorioPaciente.xls' with delimiter '\t' csv header;");
+        JOptionPane.showMessageDialog(null, "Relatório criado em 'e:/TrabalhoBD/relatorioPaciente.xls'");
+        Conexao.getInstance().fecharConexao();
+    }
+    
+    public static void relatorioFuncionario() {
+
+        String query = "SELECT * FROM cad_funcionario";
+        Conexao.getInstance().executaSQL("copy ("+ query + ") to 'e:/TrabalhoBD/relatorioFuncionario.xls' with delimiter '\t' csv header;");
+        JOptionPane.showMessageDialog(null, "Relatório criado em 'e:/TrabalhoBD/relatorioFuncionario.xls'");
         Conexao.getInstance().fecharConexao();
     }
 }

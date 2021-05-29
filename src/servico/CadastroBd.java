@@ -2,6 +2,7 @@ package servico;
 
 import javax.swing.JOptionPane;
 
+import entidades.Funcionario;
 import entidades.Paciente;
 
 public class CadastroBd {
@@ -34,6 +35,17 @@ public class CadastroBd {
 		Conexao.getInstance().executaSQL(queryVacinaPaciente);		
 		Conexao.getInstance().fecharConexao();
         JOptionPane.showMessageDialog(null, "Paciente cadastrado");
+	}
+	
+	public static void cadastroFuncionario(Funcionario fun) {
+
+		String queryFuncionario = "INSERT INTO cad_funcionario (id_fun, nome_fun, doc_fun, user_name_fun, senha_fun, email_fun)"
+				+ "values" + "(default,'" + fun.getNome() + "','" + fun.getDoc() + "','"
+				+ fun.getUserName() + "','" + fun.getSenha() + "','" + fun.getEmail() + "')";
+		Conexao.getInstance().executaSQL(queryFuncionario);
+		Conexao.getInstance().fecharConexao();
+		JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso");
+
 	}
 		
 }

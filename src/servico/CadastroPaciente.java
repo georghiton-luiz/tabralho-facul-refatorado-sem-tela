@@ -15,20 +15,21 @@ import entidades.Endereco;
 import entidades.Paciente;
 import entidades.Vacina;
 
-public class Cadastro {
+public class CadastroPaciente {
 	
-	public Cadastro() {
+	public CadastroPaciente() {
 		
 	}
 
 	public static void cadastroPaciente() {
-		try {
+		
 			Paciente paciente = new Paciente();
 			Documentos doc = new Documentos();
 			Contatos contato = new Contatos();
 			Endereco end = new Endereco();
 			Vacina vac = new Vacina();
-
+			
+			try {
 			paciente.setNomeCompleto(JOptionPane.showInputDialog("Cadastro"
 					+ "\nDigite o Nome Completo do paciente: "));
 			
