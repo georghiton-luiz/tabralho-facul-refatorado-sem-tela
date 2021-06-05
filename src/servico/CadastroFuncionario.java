@@ -4,7 +4,9 @@ import java.awt.HeadlessException;
 
 import javax.swing.JOptionPane;
 
-import entidades.Funcionario;
+import dao.CadastroDAO;
+import dao.PesquisarDAO;
+import model.Funcionario;
 
 public class CadastroFuncionario {
 
@@ -21,15 +23,15 @@ public class CadastroFuncionario {
 					.showInputDialog("Digite documento do funcionario CPF(###.###.###-##)/Credencial(CRM/COREN)"));
 
 			fun.setUserName(JOptionPane.showInputDialog("Digite um nome de usuário para login"));
-			while (fun.pesquisarFuncionario()) {
+			while (PesquisarDAO.pesquisarCadastroFuncionarioUserName(fun.getUserName())) {
 				fun.setUserName(JOptionPane.showInputDialog("Nome de usuário ja cadastrado\nDigite outro nome de usuário"));
-				fun.pesquisarFuncionario();
+				PesquisarDAO.pesquisarCadastroFuncionarioUserName(fun.getUserName());
 			}
 
 			fun.setEmail(JOptionPane.showInputDialog("Digite seu E-mail"));
-			while (fun.pesquisarFuncionario()) {
+			while (PesquisarDAO.pesquisarCadastroFuncionarioEmail(fun.getEmail())) {
 				fun.setEmail(JOptionPane.showInputDialog("E-mail ja cadastrado\nDigite outro e-mail"));
-				fun.pesquisarFuncionario();
+				PesquisarDAO.pesquisarCadastroFuncionarioEmail(fun.getEmail());
 			}
 
 			fun.setSenha(JOptionPane.showInputDialog("Digite sua senha de login"));
@@ -42,7 +44,7 @@ public class CadastroFuncionario {
 				}
 			}
 
-			CadastroBd.cadastroFuncionario(fun);
+			CadastroDAO.cadastroFuncionario(fun);
 
 		} catch (HeadlessException | NullPointerException | NumberFormatException e) {
 			e.printStackTrace();
