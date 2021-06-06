@@ -7,19 +7,26 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import dao.PesquisarCpfDAO;
-import dao.UpdateRegistroPacienteDAO;
-import servico.FormatarDados;
-import servico.ValidarDados;
+import exception.CPFInvalidoOuCadastradoException;
+import exception.EmailInvalidoException;
+import exception.TipoVacinaException;
+import repository.PesquisarCpfDAO;
+import repository.PesquisarVacinaDAO;
+import repository.UpdateRegistroPacienteDAO;
+import service.FormatarDados;
+import service.ValidarDados;
 
 public class MenuUpdateCadastroPaciente {
 
 	public static void alterarCadastro() {
 		try {
-			String CPF = (JOptionPane.showInputDialog("Digite o CPF do paciente: "));
+			String CPF = null;
 
-			boolean auxCpf = ValidarDados.isCPF(CPF);
+			boolean auxCpf = ValidarDados.isCPF(JOptionPane.showInputDialog("Digite o CPF do paciente: "));
 			while (!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(CPF))) {
+				if(!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(CPF))) {
+					throw new CPFInvalidoOuCadastradoException(CPF);
+				}								
 				CPF = JOptionPane.showInputDialog("CPF inválido ou já cadastrado\nDigite CPF");
 				auxCpf = ValidarDados.isCPF(CPF);
 			}
@@ -73,6 +80,9 @@ public class MenuUpdateCadastroPaciente {
 
 							auxCpf = ValidarDados.isCPF(auxCPF);
 							while (!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(auxCPF))) {
+								if(!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(auxCPF))) {
+									throw new CPFInvalidoOuCadastradoException(auxCPF);
+								}
 								auxCPF = JOptionPane.showInputDialog("CPF inválido ou já cadastrado\nDigite CPF");
 								auxCpf = ValidarDados.isCPF(auxCPF);
 							}
@@ -204,6 +214,9 @@ public class MenuUpdateCadastroPaciente {
 							} else {
 
 								while (!ValidarDados.isEmailValido(email)) {
+									if(!ValidarDados.isEmailValido(email)) {
+										throw new EmailInvalidoException(email);
+									}
 									email = JOptionPane.showInputDialog(
 											"E-mail inválido!\nDigitar o novo E-mail do paciente válido:");
 								}
@@ -227,34 +240,23 @@ public class MenuUpdateCadastroPaciente {
 					do {
 						switch (op2) {
 						case 1 -> {
-							resp = ValidarDados.getTipoVacina(Integer.parseInt(JOptionPane.showInputDialog(null, """
-									Qual vacina será aplicada?
-									[1] = CoronaVac | [2] = Oxford/Astrazeneca
-									Escolha de 1 ou 2 referente a vacina aplicada!
-									Digita um opção valida!""")));
-
-							boolean ok = false;
-							while (!ok) {
-								try {
-
-									while (!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca")) {
-										resp = ValidarDados
-												.getTipoVacina(Integer.parseInt(JOptionPane.showInputDialog(null, """
-														Qual vacina será aplicada?
-														[1] = CoronaVac | [2] = Oxford/Astrazeneca
-														Escolha de 1 ou 2 referente a vacina aplicada!
-														Digita um opção valida!""")));
-									}
-									ok = true;
-
-								} catch (Exception ignored) {
-
+							do {								
+								resp = ValidarDados.getTipoVacina(Integer.parseInt(JOptionPane.showInputDialog(null, """
+										Qual vacina será aplicada?
+										[1] = CoronaVac | [2] = Oxford/Astrazeneca
+										Escolha de 1 ou 2 referente a vacina aplicada!
+										Digita um opção valida!""")));
+								if(!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca")) {
+									throw new TipoVacinaException();
 								}
-							}
+								
+							}while(!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca"));
+							
 							UpdateRegistroPacienteDAO.alterarTipoVacinaPaciente(resp, CPF);
 							op2 = 0;
 						}
 						case 2 -> {
+							resp = PesquisarVacinaDAO.pesquisarTipoVacina(CPF);
 							DateFormat formatBR;
 							DateFormat formatUS;
 							Date date;
@@ -311,73 +313,3 @@ public class MenuUpdateCadastroPaciente {
 		}
 	}
 }
-
-/*
- * case 2:op2=Integer.parseInt(JOptionPane.showInputDialog(null,""" Escolha a
- * informação que deseja alterar: [1] Rua [2] Número da casa [3] Bairro [4]
- * Cidade [5] UF [6] Complemento [7] CEP [0] Voltar ao menu principal Digite sua
- * opção:\s"""));
- * 
- * Integer.parseInt(JOptionPane.showInputDialog(null,""" Escolha a informação
- * que deseja alterar: [1] Fone Fixo [2] Celular [3] E-mail"""));
- * 
- * boolean ok =
- * false;while(!ok){try{vac.setResp(Integer.parseInt(JOptionPane.showInputDialog
- * (null,""" Qual vacina será aplicada? [1] = CoronaVac | [2] =
- * Oxford/Astrazeneca Escolha de 1 ou 2 referende a vacina aplicada! Digita um
- * opção valida!""")));
- * 
- * while(vac.getResp()<=0&&vac.getResp()>2){vac.setResp(Integer.parseInt(
- * JOptionPane.showInputDialog(null,""" Qual vacina será aplicada? [1] =
- * CoronaVac | [2] = Oxford/Astrazeneca Escolha de 1 ou 2 referende a vacina
- * aplicada! Digita um opção valida!""")));}ok=true;
- * 
- * 
- * 
- * DateFormat formatBR; DateFormat formatUS; Date date; String
- * dataConvertida;if(vac.getResp()==1||vac.getResp()==4){
- * 
- * formatBR=new SimpleDateFormat("dd/MM/yyyy");date=formatBR.parse(JOptionPane.
- * showInputDialog("Digite a data da 1ª Dose: DD/MM/YYYY"));
- * 
- * formatUS=new
- * SimpleDateFormat("yyyy-MM-dd");dataConvertida=formatUS.format(date);
- * LocalDate dataVac = LocalDate.parse(
- * dataConvertida);vac.setDataVacina1(dataVac);dataVac=vac.getDataVacina1().
- * plusDays(28);vac.setDataVacina2(dataVac);
- * 
- * }else if(vac.getResp()==2||vac.getResp()==3){formatBR=new
- * SimpleDateFormat("dd/MM/yyyy");date=formatBR.parse(JOptionPane.
- * showInputDialog("Digite a data da 1ª Dose: DD/MM/YYYY"));
- * 
- * formatUS=new
- * SimpleDateFormat("yyyy-MM-dd");dataConvertida=formatUS.format(date);
- * LocalDate dataVac = LocalDate.parse(
- * dataConvertida);vac.setDataVacina1(dataVac);dataVac=vac.getDataVacina1().
- * plusDays(21);vac.setDataVacina2(dataVac);
- * 
- * }else if(vac.getResp()==5){formatBR=new
- * SimpleDateFormat("dd/MM/yyyy");date=formatBR.parse(JOptionPane.
- * showInputDialog("Digite a data da Dose única: DD/MM/YYYY"));
- * 
- * formatUS=new
- * SimpleDateFormat("yyyy-MM-dd");dataConvertida=formatUS.format(date);
- * LocalDate dataVac =
- * LocalDate.parse(dataConvertida);vac.setDataVacina1(dataVac);vac.
- * setDataVacina2(dataVac);
- * 
- * }else if(vac.getResp()==6){formatBR=new
- * SimpleDateFormat("dd/MM/yyyy");date=formatBR.parse(JOptionPane.
- * showInputDialog("Digite a data da 1ª Dose: DD/MM/YYYY"));
- * 
- * formatUS=new
- * SimpleDateFormat("yyyy-MM-dd");dataConvertida=formatUS.format(date);
- * LocalDate dataVac = LocalDate.parse(
- * dataConvertida);vac.setDataVacina1(dataVac);dataVac=vac.getDataVacina1().
- * plusDays(90);vac.setDataVacina2(dataVac);}
- * 
- * op1 = Integer.parseInt(JOptionPane.showInputDialog(null, """ Escolha o item
- * que deseja alterar: [1] Dados Paciente [2] Endereço [3] Contato [4] Vacina
- * [0] Voltar ao menu principal Digite sua opção:\s"""))
- * 
- */

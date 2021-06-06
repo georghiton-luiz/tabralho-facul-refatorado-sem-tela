@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Date;
 
-import servico.FormatarDados;
+import service.FormatarDados;
 
 public class PesquisarCadastro {
 

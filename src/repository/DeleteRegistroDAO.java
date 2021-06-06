@@ -1,6 +1,6 @@
-package dao;
+package repository;
 
-import servico.FormatarDados;
+import service.FormatarDados;
 
 public class DeleteRegistroDAO {
 
@@ -17,7 +17,7 @@ public class DeleteRegistroDAO {
 			ConexaoDAO.getInstance().fecharConexao();
 			return true;
 
-		} catch (Exception ignored) {
+		} catch (Exception e) {
 
 		}
 		return false;

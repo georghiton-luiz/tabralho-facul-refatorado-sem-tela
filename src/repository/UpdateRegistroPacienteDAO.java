@@ -1,10 +1,10 @@
-package dao;
+package repository;
 
 import java.time.LocalDate;
 
 import javax.swing.JOptionPane;
 
-import servico.FormatarDados;
+import service.FormatarDados;
 
 public class UpdateRegistroPacienteDAO {
 

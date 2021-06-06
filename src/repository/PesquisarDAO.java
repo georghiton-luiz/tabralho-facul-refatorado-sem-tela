@@ -1,6 +1,7 @@
-package dao;
+package repository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -9,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 import model.PesquisarCadastro;
-import servico.FormatarDados;
+import service.FormatarDados;
 
 public class PesquisarDAO {
 
@@ -93,7 +94,7 @@ public class PesquisarDAO {
 				return true;
 			}
 			return false;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 		return false;
@@ -116,7 +117,7 @@ public class PesquisarDAO {
 				return true;
 			}
 			return false;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 		return false;
@@ -139,7 +140,7 @@ public class PesquisarDAO {
 				return true;
 			}
 			return false;
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			// TODO: handle exception
 		}
 		return false;

@@ -2,14 +2,14 @@ package controller;
 
 import javax.swing.JOptionPane;
 
-import dao.DeleteRegistroDAO;
-import dao.PesquisarCpfDAO;
-import dao.PesquisarDAO;
-import dao.RelatorioDAO;
-import servico.CadastroFuncionario;
-import servico.CadastroPaciente;
-import servico.FormatarDados;
-import servico.ValidarDados;
+import repository.DeleteRegistroDAO;
+import repository.PesquisarCpfDAO;
+import repository.PesquisarDAO;
+import repository.RelatorioDAO;
+import service.CadastroFuncionario;
+import service.CadastroPaciente;
+import service.FormatarDados;
+import service.ValidarDados;
 
 public class MenuPrincipalController {
 
@@ -28,6 +28,7 @@ public class MenuPrincipalController {
 						      [5] Relatório Pacientes
 						      [6] Relatório Funcionarios
 						      [7] Deletar Paciente
+						      [8] Tela Login
 						      [0] Sair"""));
 				switch (op) {
 				case 1:
@@ -43,7 +44,6 @@ public class MenuPrincipalController {
 				case 4:
 					MenuUpdateCadastroPaciente.alterarCadastro();
 					break;
-
 				case 5:
 					RelatorioDAO.relatorioPaciente();
 					break;
@@ -66,6 +66,10 @@ public class MenuPrincipalController {
 					} catch (Exception ignored) {
 
 					}
+					break;
+				case 8:
+					LoginController.login();
+					
 					break;
 				case 0:
 					JOptionPane.showMessageDialog(null, "Saindo do aplicativo");
@@ -93,6 +97,7 @@ public class MenuPrincipalController {
 						      [3] Alterar Paciente
 						      [4] Relatório Pacientes
 						      [5] Deletar Paciente
+						      [6] Tela Login
 						      [0] Sair"""));
 				switch (op) {
 				case 1:
@@ -124,6 +129,9 @@ public class MenuPrincipalController {
 					} catch (Exception ignored) {
 
 					}
+					break;
+				case 6:
+					LoginController.login();
 					break;
 				case 0:
 					JOptionPane.showMessageDialog(null, "Saindo do aplicativo");

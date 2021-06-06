@@ -1,4 +1,4 @@
-package servico;
+package service;
 
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -75,14 +75,6 @@ public class ValidarDados {
         return isEmailIdValid;
     }
     
-	public static ValidarDados getInstance() {
-		if (Objects.nonNull(validarCPF)) {
-			return validarCPF;
-		}
-		validarCPF = new ValidarDados();
-		return validarCPF;
-	}
-	
 	public static String getTipoVacina(int resp) {
 		switch (resp) {
 			case 1 -> {

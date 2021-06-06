@@ -1,6 +1,7 @@
-package dao;
+package repository;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PesquisarCpfDAO {
 	
@@ -16,7 +17,7 @@ public class PesquisarCpfDAO {
             }
             return auxCpf.equals(cpf);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
