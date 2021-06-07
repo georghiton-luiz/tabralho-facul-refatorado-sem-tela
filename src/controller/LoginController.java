@@ -44,7 +44,7 @@ public class LoginController {
 			JOptionPane.showMessageDialog(null, entSenha, "Acesso restrito", JOptionPane.PLAIN_MESSAGE);
 
 
-			String senha = password.getText();
+			String senha = new String(password.getPassword());
 
 				if (login.equals("admin") && senha.equals("root")) {
 					MenuPrincipalController.menuPrincipalAdmin();
@@ -65,7 +65,7 @@ public class LoginController {
 					}
 				}
 			}catch (CampoObrigatorioException | LoginSenhaException e) {
-				e.printStackTrace();
+				e.getMessage();
 				login();
 			// TODO: handle exception
 		}

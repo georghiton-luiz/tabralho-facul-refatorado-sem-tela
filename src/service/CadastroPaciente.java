@@ -9,9 +9,9 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import exception.CPFInvalidoOuCadastradoException;
 import exception.CampoObrigatorioException;
 import exception.EmailInvalidoException;
+import exception.StatusCPFException;
 import exception.TipoVacinaException;
 import model.Contatos;
 import model.Documentos;
@@ -36,13 +36,14 @@ public class CadastroPaciente {
 		Vacina vac = new Vacina();
 
 		try {
-			paciente.setNomeCompleto(
-					JOptionPane.showInputDialog("Digite o Nome Completo do paciente"));
+			paciente.setNomeCompleto(JOptionPane.showInputDialog("Digite o Nome Completo do paciente"));
 
 			while (paciente.getNomeCompleto().equals("")) {
-				if(paciente.getNomeCompleto().equals("")) {
+
+				if (paciente.getNomeCompleto().equals("")) {
 					throw new CampoObrigatorioException();
-				}				
+				}
+
 				paciente.setNomeCompleto(JOptionPane.showInputDialog(
 						"Campo Obrigatório!\nPreencha com nome completo: " + "Digite o Nome Completo do paciente"));
 			}
@@ -61,9 +62,11 @@ public class CadastroPaciente {
 
 			boolean auxCpf = ValidarDados.isCPF(doc.getCpf());
 			while (!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(doc.getCpf()))) {
-				if(!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(doc.getCpf()))) {
-					throw new CPFInvalidoOuCadastradoException(doc.getCpf());
-				}				
+
+				if (!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(doc.getCpf()))) {
+					throw new StatusCPFException(doc.getCpf());
+				}
+
 				doc.setCpf(JOptionPane.showInputDialog("CPF inválido ou já cadastrado\nDigite CPF"));
 				auxCpf = ValidarDados.isCPF(doc.getCpf());
 			}
@@ -89,9 +92,11 @@ public class CadastroPaciente {
 			} else {
 
 				while (!ValidarDados.isEmailValido(contato.getEmail())) {
+
 					if (!ValidarDados.isEmailValido(contato.getEmail())) {
 						throw new EmailInvalidoException(contato.getEmail());
 					}
+
 					contato.setEmail(JOptionPane
 							.showInputDialog("E-mail inválido!\nDigitar um E-mail válido:\nDigite seu E-mail"));
 				}
@@ -112,20 +117,21 @@ public class CadastroPaciente {
 
 			end.setCep(JOptionPane.showInputDialog("Digite o CEP"));
 			paciente.setEndereco(end);
-			
+
 			String resp;
 
 			do {
-			resp = ValidarDados.getTipoVacina(Integer.parseInt(JOptionPane.showInputDialog(null, """
-					Qual vacina será aplicada?
-					[1] = CoronaVac | [2] = Oxford/Astrazeneca
-					Escolha de 1 ou 2 referente a vacina aplicada!
-					Digita um opção valida!""")));
-			if(!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca")) {
-				throw new TipoVacinaException();
-			}
+				resp = ValidarDados.getTipoVacina(Integer.parseInt(JOptionPane.showInputDialog(null, """
+						Qual vacina será aplicada?
+						[1] = CoronaVac | [2] = Oxford/Astrazeneca
+						Escolha de 1 ou 2 referente a vacina aplicada!
+						Digita um opção valida!""")));
 
-			}while (!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca"));
+				if (!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca")) {
+					throw new TipoVacinaException();
+				}
+
+			} while (!resp.equals("CoronaVac") && !resp.equals("Oxford/Astrazeneca"));
 
 			vac.setTpVacina(resp);
 
@@ -158,8 +164,9 @@ public class CadastroPaciente {
 
 			CadastroDAO.cadastroPaciente(paciente);
 
-		} catch (HeadlessException | NullPointerException | ParseException | NumberFormatException | EmailInvalidoException | 
-				TipoVacinaException | CPFInvalidoOuCadastradoException | CampoObrigatorioException e) {
+		} catch (HeadlessException | NullPointerException | ParseException | NumberFormatException
+				| EmailInvalidoException | TipoVacinaException	| CampoObrigatorioException
+				| StatusCPFException e) {
 			e.getMessage();
 			JOptionPane.showMessageDialog(null, "Erro inesperado!");
 		}

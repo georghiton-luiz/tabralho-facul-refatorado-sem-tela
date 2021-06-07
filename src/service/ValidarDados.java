@@ -1,13 +1,9 @@
 package service;
 
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ValidarDados {
-	
-
-	private static ValidarDados validarCPF;
     
     public ValidarDados() {
     	
@@ -15,6 +11,8 @@ public class ValidarDados {
 	
     //Validador de CPF
     public static boolean isCPF(String cpf) {
+    	
+    	cpf = cpf.replaceAll("[^0-9]", "");
 
         String[] invalidoCpf = {"00000000000","11111111111","22222222222","33333333333","44444444444","55555555555","66666666666",
                 "77777777777","88888888888","99999999999"};

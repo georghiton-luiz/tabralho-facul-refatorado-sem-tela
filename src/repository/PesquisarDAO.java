@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 import model.PesquisarCadastro;
-import service.FormatarDados;
 
 public class PesquisarDAO {
 
@@ -25,7 +24,7 @@ public class PesquisarDAO {
 						+ "ON DADOS.id_paciente = ENDERECO.id_paciente INNER JOIN contato_paciente AS CONTATO "
 						+ "ON DADOS.id_paciente = CONTATO.id_paciente INNER JOIN vacina_paciente AS VACINA "
 						+ "ON DADOS.id_paciente = VACINA.id_paciente WHERE DADOS.cpf_paciente LIKE '"
-						+ FormatarDados.getCpfFormatado(cpf) + "'");
+						+ cpf + "'");
 
 		try {
 			while (rs.next()) {

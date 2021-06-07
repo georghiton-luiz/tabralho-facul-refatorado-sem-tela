@@ -2,6 +2,7 @@ package controller;
 
 import javax.swing.JOptionPane;
 
+import exception.StatusCPFException;
 import repository.DeleteRegistroDAO;
 import repository.PesquisarCpfDAO;
 import repository.PesquisarDAO;
@@ -39,7 +40,11 @@ public class MenuPrincipalController {
 					break;
 				case 3:
 					String cpf = JOptionPane.showInputDialog("Digite o CPF do registro do paciente que deseja pesquisar");
-					PesquisarDAO.pesquisarCadastro(cpf);				
+					if(PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf)) && ValidarDados.isCPF(cpf)) {
+						PesquisarDAO.pesquisarCadastro(FormatarDados.getCpfFormatado(cpf));	
+					}else {
+						throw new StatusCPFException(cpf);
+					}					
 					break;
 				case 4:
 					MenuUpdateCadastroPaciente.alterarCadastro();
@@ -50,22 +55,22 @@ public class MenuPrincipalController {
 				case 6:
 					RelatorioDAO.relatorioFuncionario();
 					break;
-				case 7:
-					try {
+				case 7:					
 						cpf = JOptionPane.showInputDialog("Digite o CPF do registro do paciente que deseja deletar");
-						boolean auxCpf = ValidarDados.isCPF(cpf);
-						while(!auxCpf || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf))){
-							auxCpf = ValidarDados.isCPF(cpf = JOptionPane.showInputDialog("CPF invalido ou já cadastrado\nDigite CPF"));
+						
+						while(!ValidarDados.isCPF(cpf) || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf))){
+							
+							if(!ValidarDados.isCPF(cpf) || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf))){
+								throw new StatusCPFException(cpf);
+							}
+							
+							cpf = JOptionPane.showInputDialog("CPF invalido ou já cadastrado\nDigite CPF");
 						}
 						cpf = FormatarDados.getCpfFormatado(cpf);
 						
 						if (DeleteRegistroDAO.deletarCadastro(cpf)) {
 							JOptionPane.showMessageDialog(null, "Cadastro do paciente deletado");
 						}
-
-					} catch (Exception ignored) {
-
-					}
 					break;
 				case 8:
 					LoginController.login();
@@ -80,8 +85,9 @@ public class MenuPrincipalController {
 				}
 			} while (op != 0);
 
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (StatusCPFException e) {
+			e.printStackTrace();
+			MenuPrincipalController.menuPrincipalAdmin();
 		}
 
 	}
@@ -105,7 +111,11 @@ public class MenuPrincipalController {
 					break;
 				case 2:
 					String cpf = JOptionPane.showInputDialog("Digite o CPF do registro do paciente que deseja pesquisar");
-					PesquisarDAO.pesquisarCadastro(cpf);					
+					if(PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf)) && ValidarDados.isCPF(cpf)) {
+						PesquisarDAO.pesquisarCadastro(FormatarDados.getCpfFormatado(cpf));	
+					}else {
+						throw new StatusCPFException(cpf);
+					}								
 					break;
 				case 3:
 					MenuUpdateCadastroPaciente.alterarCadastro();
@@ -114,20 +124,20 @@ public class MenuPrincipalController {
 					RelatorioDAO.relatorioPaciente();
 					break;
 				case 5:
-					try {
-						cpf = JOptionPane.showInputDialog("Digite o CPF do registro do paciente que deseja deletar");
-						boolean auxCpf = ValidarDados.isCPF(cpf);
-						while(!auxCpf || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf))){
-							auxCpf = ValidarDados.isCPF(cpf = JOptionPane.showInputDialog("CPF invalido ou já cadastrado\nDigite CPF"));
-						}
-						cpf = FormatarDados.getCpfFormatado(cpf);
+					cpf = JOptionPane.showInputDialog("Digite o CPF do registro do paciente que deseja deletar");
+					
+					while(!ValidarDados.isCPF(cpf) || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf))){
 						
-						if (DeleteRegistroDAO.deletarCadastro(cpf)) {
-							JOptionPane.showMessageDialog(null, "Cadastro do paciente deletado");
+						if(!ValidarDados.isCPF(cpf) || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(cpf))){
+							throw new StatusCPFException(cpf);
 						}
-
-					} catch (Exception ignored) {
-
+						
+						cpf = JOptionPane.showInputDialog("CPF invalido ou já cadastrado\nDigite CPF");
+					}
+					cpf = FormatarDados.getCpfFormatado(cpf);
+					
+					if (DeleteRegistroDAO.deletarCadastro(cpf)) {
+						JOptionPane.showMessageDialog(null, "Cadastro do paciente deletado");
 					}
 					break;
 				case 6:
@@ -142,8 +152,9 @@ public class MenuPrincipalController {
 				}
 			} while (op != 0);
 
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (StatusCPFException e) {
+			e.printStackTrace();
+			MenuPrincipalController.menuPrincipalUsuario();
 		}
 
 	}

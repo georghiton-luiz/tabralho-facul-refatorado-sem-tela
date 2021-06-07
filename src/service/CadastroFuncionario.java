@@ -4,7 +4,6 @@ import java.awt.HeadlessException;
 
 import javax.swing.JOptionPane;
 
-import exception.EmailCadastradoException;
 import exception.EmailCadastradoOuInvalido;
 import exception.SenhaNaoCorrespondeException;
 import exception.UsuarioCadastradoException;

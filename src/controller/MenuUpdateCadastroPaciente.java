@@ -1,14 +1,15 @@
 package controller;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import exception.CPFInvalidoOuCadastradoException;
 import exception.EmailInvalidoException;
+import exception.StatusCPFException;
 import exception.TipoVacinaException;
 import repository.PesquisarCpfDAO;
 import repository.PesquisarVacinaDAO;
@@ -17,20 +18,22 @@ import service.FormatarDados;
 import service.ValidarDados;
 
 public class MenuUpdateCadastroPaciente {
-
+	
 	public static void alterarCadastro() {
-		try {
-			String CPF = null;
-
-			boolean auxCpf = ValidarDados.isCPF(JOptionPane.showInputDialog("Digite o CPF do paciente: "));
-			while (!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(CPF))) {
-				if(!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(CPF))) {
-					throw new CPFInvalidoOuCadastradoException(CPF);
-				}								
-				CPF = JOptionPane.showInputDialog("CPF inválido ou já cadastrado\nDigite CPF");
-				auxCpf = ValidarDados.isCPF(CPF);
+		
+		try {			
+			String CPF = JOptionPane.showInputDialog("Digite o CPF do registro do paciente que deseja editar");
+			
+			while(!ValidarDados.isCPF(CPF) || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(CPF))){
+				
+				if(!ValidarDados.isCPF(CPF) || !PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(CPF))){
+					throw new StatusCPFException(CPF);
+				}
+				
+				CPF = JOptionPane.showInputDialog("CPF invalido ou não cadastrado\nDigite CPF");
 			}
 			CPF = FormatarDados.getCpfFormatado(CPF);
+
 
 			int op1;
 			do {
@@ -77,14 +80,13 @@ public class MenuUpdateCadastroPaciente {
 						case 3 -> {
 
 							String auxCPF = JOptionPane.showInputDialog("Digite o CPF corrigido do paciente");
-
-							auxCpf = ValidarDados.isCPF(auxCPF);
-							while (!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(auxCPF))) {
-								if(!auxCpf || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(auxCPF))) {
-									throw new CPFInvalidoOuCadastradoException(auxCPF);
+							
+							while (!ValidarDados.isCPF(auxCPF) || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(auxCPF))) {
+								if(!ValidarDados.isCPF(auxCPF) || PesquisarCpfDAO.pesquisarCpf(FormatarDados.getCpfFormatado(auxCPF))) {
+									throw new StatusCPFException(auxCPF);
 								}
 								auxCPF = JOptionPane.showInputDialog("CPF inválido ou já cadastrado\nDigite CPF");
-								auxCpf = ValidarDados.isCPF(auxCPF);
+								
 							}
 							auxCPF = FormatarDados.getCpfFormatado(auxCPF);
 
@@ -136,7 +138,7 @@ public class MenuUpdateCadastroPaciente {
 						switch (op2) {
 						case 1 -> {
 							String rua = JOptionPane
-									.showInputDialog("Digite seu novo enderço" + "\nDigite a Rua/Avenida/Lagradouro");
+									.showInputDialog("Digite seu novo enderço\nRua/Avenida/Lagradouro");
 							UpdateRegistroPacienteDAO.alterarRuaPaciente(rua, CPF);
 							op2 = 0;
 						}
@@ -304,11 +306,11 @@ public class MenuUpdateCadastroPaciente {
 					JOptionPane.showMessageDialog(null, "Opção invalida!\nEscolha uma opção valida:");
 				}
 
-			} while (op1 != 0);
-			JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso!");
+			} while (op1 != 0);			
 
-		} catch (Exception e) {
+		} catch (StatusCPFException | ParseException | TipoVacinaException | EmailInvalidoException e) {
 			e.printStackTrace();
+			MenuUpdateCadastroPaciente.alterarCadastro();
 
 		}
 	}
