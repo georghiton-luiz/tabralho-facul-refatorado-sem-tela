@@ -16,14 +16,12 @@ public class RelatorioDAO {
                 + "ON DADOS.id_paciente = VACINA.id_paciente";
         ConexaoDAO.getInstance().executaSQL("copy ("+ query + ") to 'e:/TrabalhoBD/relatorioPaciente.xls' with delimiter '\t' csv header;");
         JOptionPane.showMessageDialog(null, "Relatório criado em 'e:/TrabalhoBD/relatorioPaciente.xls'");
-        ConexaoDAO.getInstance().fecharConexao();
     }
     
     public static void relatorioFuncionario() {
 
         String query = "SELECT * FROM cad_funcionario";
         ConexaoDAO.getInstance().executaSQL("copy ("+ query + ") to 'e:/TrabalhoBD/relatorioFuncionario.xls' with delimiter '\t' csv header;");
-        JOptionPane.showMessageDialog(null, "Relatório criado em 'e:/TrabalhoBD/relatorioFuncionario.xls'");
-        ConexaoDAO.getInstance().fecharConexao();
+        JOptionPane.showMessageDialog(null, "Relatório criado em 'e:/TrabalhoBD/relatorioFuncionario.xls'");        
     }
 }

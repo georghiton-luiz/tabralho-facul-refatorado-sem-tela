@@ -3,6 +3,7 @@ package controller;
 import javax.swing.JOptionPane;
 
 import exception.StatusCPFException;
+import repository.ConexaoDAO;
 import repository.DeleteRegistroDAO;
 import repository.PesquisarCpfDAO;
 import repository.PesquisarDAO;
@@ -50,9 +51,11 @@ public class MenuPrincipalController {
 					MenuUpdateCadastroPaciente.alterarCadastro();
 					break;
 				case 5:
+					ConexaoDAO.getInstance();
 					RelatorioDAO.relatorioPaciente();
 					break;
 				case 6:
+					ConexaoDAO.getInstance();
 					RelatorioDAO.relatorioFuncionario();
 					break;
 				case 7:					

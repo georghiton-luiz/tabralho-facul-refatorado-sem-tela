@@ -7,6 +7,7 @@ import javax.swing.JPasswordField;
 
 import exception.CampoObrigatorioException;
 import exception.LoginSenhaException;
+import repository.ConexaoDAO;
 import repository.PesquisarDAO;
 
 public class LoginController {
@@ -29,8 +30,6 @@ public class LoginController {
 				JOptionPane.showMessageDialog(null, "Saindo do CadVacina");
 				System.exit(0);
 				}
-			
-			
 
 			JPasswordField password = new JPasswordField(10);
 			password.setEchoChar('*'); 
@@ -51,23 +50,23 @@ public class LoginController {
 				} else if (PesquisarDAO.pesquisarLoginFuncionario(login, senha)) {
 					MenuPrincipalController.menuPrincipalUsuario();
 				} else {
-					if(!PesquisarDAO.pesquisarLoginFuncionario(login, senha)) {
+					if(!PesquisarDAO.pesquisarLoginFuncionario(login, senha)) {						
 						throw new LoginSenhaException();
 					}
-					login();
-					int resp = JOptionPane.showConfirmDialog(null,
-							"Login e/ou Senha incorretas", "WARNING",
-							JOptionPane.YES_NO_OPTION);
-					if (resp == 0) {
-						login();
-					} else {
-						System.exit(0);
-					}
+
 				}
-			}catch (CampoObrigatorioException | LoginSenhaException e) {
+			}catch (CampoObrigatorioException | LoginSenhaException | NullPointerException e) {
 				e.getMessage();
-				login();
-			// TODO: handle exception
+				e.printStackTrace();
+				int resp = JOptionPane.showConfirmDialog(null,
+						"Login e/ou Senha incorretas\nDeseja continuar", "WARNING",
+						JOptionPane.YES_NO_OPTION);
+				if (resp == 0) {
+					login();
+				} else {
+					ConexaoDAO.getInstance().fecharConexao();
+					System.exit(0);
+				}			
 		}
 
 	}
