@@ -33,7 +33,6 @@ public class CadastroDAO {
 				+ "data2_vac_paciente)values" + "(default,default,'" + p.getVacina().getTpVacina() + "','"
 				+ p.getVacina().getDataVacina1() + "','" + p.getVacina().getDataVacina2() + "')";
 		ConexaoDAO.getInstance().executaSQL(queryVacinaPaciente);		
-		ConexaoDAO.getInstance().fecharConexao();
         JOptionPane.showMessageDialog(null, "Paciente cadastrado");
 	}
 	
@@ -43,7 +42,6 @@ public class CadastroDAO {
 				+ "values" + "(default,'" + fun.getNome() + "','" + fun.getDoc() + "','"
 				+ fun.getUserName() + "','" + fun.getSenha() + "','" + fun.getEmail() + "')";
 		ConexaoDAO.getInstance().executaSQL(queryFuncionario);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Funcionario cadastrado com sucesso");
 
 	}

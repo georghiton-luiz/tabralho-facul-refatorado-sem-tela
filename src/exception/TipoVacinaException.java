@@ -8,5 +8,10 @@ public class TipoVacinaException extends Exception{
 		System.out.println("Tipo de vacina invalido");
 		
 	}
+	
+	@Override
+	public String toString() {
+		return "Tipo de vacina invalido";
+	}
 
 }

@@ -308,7 +308,7 @@ public class MenuUpdateCadastroPaciente {
 
 			} while (op1 != 0);			
 
-		} catch (StatusCPFException | ParseException | TipoVacinaException | EmailInvalidoException e) {
+		} catch (StatusCPFException | ParseException | TipoVacinaException | EmailInvalidoException | NumberFormatException e) {
 			e.printStackTrace();
 			MenuUpdateCadastroPaciente.alterarCadastro();
 

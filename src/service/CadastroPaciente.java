@@ -167,8 +167,8 @@ public class CadastroPaciente {
 		} catch (HeadlessException | NullPointerException | ParseException | NumberFormatException
 				| EmailInvalidoException | TipoVacinaException	| CampoObrigatorioException
 				| StatusCPFException e) {
-			e.getMessage();
-			JOptionPane.showMessageDialog(null, "Erro inesperado!");
+			e.printStackTrace();
+			CadastroPaciente.cadastroPaciente();
 		}
 
 	}

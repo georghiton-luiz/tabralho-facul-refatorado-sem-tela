@@ -1,12 +1,13 @@
 package exception;
 
+import javax.swing.JOptionPane;
 
 @SuppressWarnings("serial")
 public class CampoObrigatorioException extends Exception{
 	
 	public CampoObrigatorioException() {
 		
-		System.out.println("Preenchimento do campo é obrigatorio");
+		JOptionPane.showMessageDialog(null, "Preenchimento do campo é obrigatorio");
 		
 	}
 

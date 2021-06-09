@@ -9,4 +9,9 @@ public class SenhaNaoCorrespondeException extends Exception{
 		
 	}
 
+	@Override
+	public String toString() {
+		return "Senha não conrresponde";
+	}
+
 }

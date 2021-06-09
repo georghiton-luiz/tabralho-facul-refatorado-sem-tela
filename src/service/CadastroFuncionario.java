@@ -61,8 +61,8 @@ public class CadastroFuncionario {
 			CadastroDAO.cadastroFuncionario(fun);
 
 		} catch (HeadlessException | NullPointerException | NumberFormatException | UsuarioCadastradoException | SenhaNaoCorrespondeException | EmailCadastradoOuInvalido e) {
-			e.getMessage();
-			JOptionPane.showMessageDialog(null, "Erro inesperado!");
+			e.printStackTrace();
+			CadastroFuncionario.cadFuncionario();
 		}
 
 	}

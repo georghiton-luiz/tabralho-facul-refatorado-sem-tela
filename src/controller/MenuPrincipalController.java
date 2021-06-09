@@ -88,7 +88,7 @@ public class MenuPrincipalController {
 				}
 			} while (op != 0);
 
-		} catch (StatusCPFException e) {
+		} catch (StatusCPFException | NumberFormatException e) {
 			e.printStackTrace();
 			MenuPrincipalController.menuPrincipalAdmin();
 		}
@@ -155,8 +155,8 @@ public class MenuPrincipalController {
 				}
 			} while (op != 0);
 
-		} catch (StatusCPFException e) {
-			e.printStackTrace();
+		} catch (StatusCPFException | NumberFormatException e) {
+			e.printStackTrace();			
 			MenuPrincipalController.menuPrincipalUsuario();
 		}
 

@@ -17,7 +17,6 @@ public class UpdateRegistroPacienteDAO {
 		String query = "UPDATE dados_paciente SET nome_paciente = '" + update
 				+ "' WHERE dados_paciente.cpf_paciente = '" + CPF + "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -27,7 +26,6 @@ public class UpdateRegistroPacienteDAO {
 		String query = "UPDATE dados_paciente SET data_nasc_paciente = '" + update
 				+ "' WHERE dados_paciente.cpf_paciente = '" + CPF + "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -37,7 +35,6 @@ public class UpdateRegistroPacienteDAO {
 		String query = "UPDATE dados_paciente SET cpf_paciente = '" + FormatarDados.getCpfFormatado(update)
 				+ "WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF) + "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -47,7 +44,6 @@ public class UpdateRegistroPacienteDAO {
 		String query = "UPDATE dados_paciente SET rg_paciente = '" + update + "' WHERE dados_paciente.cpf_paciente = '"
 				+ FormatarDados.getCpfFormatado(CPF) + "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -57,7 +53,6 @@ public class UpdateRegistroPacienteDAO {
 		String query = "UPDATE dados_paciente SET org_emissor_paciente = '" + update
 				+ "' WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF) + "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -67,7 +62,6 @@ public class UpdateRegistroPacienteDAO {
 		String query = "UPDATE dados_paciente SET num_sus_paciente = '" + update
 				+ "' WHERE dados_paciente.cpf_paciente = '" + CPF + "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -78,7 +72,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -89,7 +82,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -100,7 +92,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -111,7 +102,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -122,7 +112,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -133,7 +122,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -144,7 +132,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -155,7 +142,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -166,7 +152,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -177,7 +162,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -188,7 +172,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -199,7 +182,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
@@ -210,7 +192,6 @@ public class UpdateRegistroPacienteDAO {
 				+ "FROM dados_paciente WHERE dados_paciente.cpf_paciente = '" + FormatarDados.getCpfFormatado(CPF)
 				+ "'";
 		ConexaoDAO.getInstance().executaSQL(query);
-		ConexaoDAO.getInstance().fecharConexao();
 		JOptionPane.showMessageDialog(null, "Cadastro atualizado com sucesso");
 
 	}
